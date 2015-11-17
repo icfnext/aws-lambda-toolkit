@@ -1,12 +1,16 @@
 {
   "name": "deploy-aws-lambda",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple AWS Lambda deployment script.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Matt Bengston <matt.bengston@icfi.com> (http://aesinv.com)",
+  "repository": {
+    "type": "git",
+    "url" : "https://github.com/aesinv/deploy-aws-lambda.git"
+  },
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.2.17"
