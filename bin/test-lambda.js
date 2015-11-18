@@ -10,7 +10,7 @@ var testLambdaFunction = function testLambda(props) {
 
     // get main lambda file path
     if (props && props.hasOwnProperty('entry')) {
-        entry = props.entry;
+        entry = cwd+'/'+props.entry;
     } else {
         cwd = process.cwd();
         config = require(cwd+'/package.json');
