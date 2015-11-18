@@ -9,9 +9,21 @@ A small library of AWS Lambda development tools to help make AWS Lambda developm
 ## @todo
 
 - Add more in-depth documentation
+- Refactor of test setup
+- Creation of an .rc file that will house the AWS config settings while being omitted by source control
 - Creation of lambda function on first deployment
 - Add unit tests
 - Suggestions welcome!
+
+## Gotchas
+
+- Due to some limitations with injecting the AWS configuration into the lambda, when using `aws-sdk` calls within your lambda you are required to manually set the region via the global config object at the top of your lambda file:
+    ```
+    var AWS = require('aws-sdk');
+    AWS.config.region = 'REGION';
+    ```
+    This is a known issue [1](https://github.com/Tim-B/grunt-aws-lambda/issues/18)[2](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html#Setting_the_Region) due to the SDK not pulling in the region automatically (like it does the secret/access keys), but due to the complexity of creating a workaround it's been backlogged for the moment.
+- This toolkit is meant to be used in conjunction with the [AWS cli](https://aws.amazon.com/cli/). By default, and without passing in any secret or access key, the module will be given the secret/access keys from your global config set by the AWS cli. If you are worried about including your keys in source control, it is highly recommended you store them globally via the AWS cli. This will be remedied in the future via an _.rc_ configuration file.
 
 ## Installation:
 ```
@@ -23,8 +35,8 @@ npm install --save aws-lambda-toolkit
 ### .deploy(config)
 
 - config: object
-    + secretKey: Your AWS Secret Key
-    + accessKey: Your AWS Access Key
+    + secretKey: (optional) Your AWS Secret Key
+    + accessKey: (optional) Your AWS Access Key
     + region: The AWS Region to use
     + name: The function name to use
 
@@ -32,7 +44,7 @@ npm install --save aws-lambda-toolkit
 
 - config: object
     + entry: (optional) relative path to lambda file
-        - If ommitted, the `main` prop in the package.json will be used.
+        - If omitted, the `main` prop in the package.json will be used.
     + tests: (optional) path to test file.
         - This will eventually just be a standard object, it's currently recommended to add the paths to your package.json and let it auto-load them.
 
