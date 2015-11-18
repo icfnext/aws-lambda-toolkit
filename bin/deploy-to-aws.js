@@ -7,7 +7,7 @@ var deployToAws = function(props) {
     var funcName = props.name;
 
     if (props.secretKey) aws.config.secretAccessKey = props.secretKey;
-    if (props.accessKey) aws.config.secretAccessKey = props.accessKey;
+    if (props.accessKey) aws.config.accessKeyId = props.accessKey;
     aws.config.region = props.region;
 
     var deploy = function(file) {
