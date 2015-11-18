@@ -1,6 +1,6 @@
 {
   "name": "aws-lambda-toolkit",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A small library of AWS lambda tools for easier lambda development.",
   "main": "index.js",
   "keywords": [
