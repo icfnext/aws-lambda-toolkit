@@ -1,7 +1,7 @@
 {
-  "name": "deploy-aws-lambda",
-  "version": "1.0.0",
-  "description": "A simple AWS Lambda deployment script.",
+  "name": "aws-lambda-toolkit",
+  "version": "0.0.5",
+  "description": "A small library of AWS lambda tools for easier lambda development.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,7 +9,7 @@
   "author": "Matt Bengston <matt.bengston@icfi.com> (http://aesinv.com)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aesinv/deploy-aws-lambda.git"
+    "url": "https://github.com/aesinv/aws-lambda-toolkit.git"
   },
   "license": "ISC",
   "dependencies": {
