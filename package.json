@@ -9,10 +9,11 @@
   "author": "Matt Bengston <matt.bengston@icfi.com> (http://aesinv.com)",
   "repository": {
     "type": "git",
-    "url" : "https://github.com/aesinv/deploy-aws-lambda.git"
+    "url": "https://github.com/aesinv/deploy-aws-lambda.git"
   },
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.2.17"
+    "aws-sdk": "^2.2.17",
+    "chalk": "^1.1.1"
   }
 }
