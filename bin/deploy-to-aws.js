@@ -6,8 +6,8 @@ var bundle = require('../lib/deploying/bundle-lambda.js'),
 var deployToAws = function(props) {
     var funcName = props.name;
 
-    aws.config.secretAccessKey = props.secretKey;
-    aws.config.accessKeyId = props.accessKey;
+    if (props.secretKey) aws.config.secretAccessKey = props.secretKey;
+    if (props.accessKey) aws.config.secretAccessKey = props.accessKey;
     aws.config.region = props.region;
 
     var deploy = function(file) {
