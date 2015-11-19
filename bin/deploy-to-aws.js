@@ -1,4 +1,8 @@
-var aws = require('aws-sdk');
+var aws = require('aws-sdk'),
+    chalk = require('chalk'),
+    emph = chalk.bold.green,
+    label = chalk.yellow,
+    val = chalk.cyan;
 
 var bundle = require('../lib/deploying/bundle-lambda.js'),
     install = require('../lib/deploying/install-modules.js');
@@ -22,8 +26,13 @@ var deployToAws = function(props) {
         console.log('Attempting to upload bundled lambda to AWS.');
 
         lambda.updateFunctionCode(params, function(err, data) {
-          if (err) console.log('ERROR:', err); // an error occurred
-          else     console.log('Success!', data); // successful response
+            if (err) return console.log('ERROR:', err); // an error occurred
+
+            console.log('Successfully deployed', emph(data.FunctionName), emph('v'+data.Version)+'\n', '\t'+label('Using handler'), val(data.Handler)); // successful response
+            console.log(label('\tFunction Arn:'), val(data.FunctionArn));
+            console.log(label('\tRole:'), val(data.Role));
+            console.log(label('\tBundle size:'), val(data.CodeSize));
+            console.log(label('\tSha256:'), val(data.CodeSha256));
         });
     };
 

@@ -17,7 +17,8 @@
   },
   "author": "CID10",
   "contributors": [
-    "Matt Bengston <matt.bengston@icfi.com> (http://aesinv.com)"
+    "Matt Bengston <matt.bengston@icfi.com> (http://aesinv.com)",
+    "John Daniel <john.daniel@icfi.com>"
   ],
   "repository": {
     "type": "git",

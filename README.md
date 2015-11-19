@@ -31,7 +31,6 @@ npm install --save aws-lambda-toolkit
 ```
 
 ## Commands
----
 ### .deploy(config)
 
 - config: object
@@ -49,7 +48,6 @@ npm install --save aws-lambda-toolkit
         - This will eventually just be a standard object, it's currently recommended to add the paths to your package.json and let it auto-load them.
 
 ## Sample usage
----
 #### Sample Gulp usage
 
 1. Install modules.
@@ -91,6 +89,8 @@ npm install --save aws-lambda-toolkit
     ```
 5. Run `gulp test-lambda` to have the module fire up your lambda and shoot the test requests over to it.
 6. Run `gulp deploy-to-aws` to deploy your lambda
+
+
 
 #### Sample NPM Usage
 1. Install the module `npm install --save aws-lambda-toolkit`
