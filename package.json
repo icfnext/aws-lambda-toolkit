@@ -15,12 +15,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Matt Bengston <matt.bengston@icfi.com> (http://aesinv.com)",
+  "author": "CID10",
+  "contributors": [
+    "Matt Bengston <matt.bengston@icfi.com> (http://aesinv.com)"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/aesinv/aws-lambda-toolkit.git"
+    "url": "https://github.com/Citytechinc/aws-lambda-toolkit.git"
   },
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "aws-sdk": "^2.2.17",
     "chalk": "^1.1.1"
