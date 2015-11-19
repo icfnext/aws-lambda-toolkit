@@ -1,4 +1,4 @@
-# aws-lambda-toolkit
+# aws-lambda-toolkit [![NPM Version][npm-image]][npm-url]
 A small library of AWS Lambda development tools to help make AWS Lambda development easier.
 
 ## Included functionality
@@ -141,3 +141,7 @@ npm install --save aws-lambda-toolkit
 
 ## Contact
 Feel free to open PR's, issues, or contact me with any questions/concerns. This was built to speed up development of some internal POC's utilizing AWS lambdas over at [ICF Interactive](http://icfi.com/interactive).
+
+
+[npm-url]: https://www.npmjs.com/package/aws-lambda-toolkit
+[npm-image]: https://img.shields.io/npm/v/aws-lambda-toolkit.svg?style=flat-square
