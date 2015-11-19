@@ -22,7 +22,7 @@ A small library of AWS Lambda development tools to help make AWS Lambda developm
     var AWS = require('aws-sdk');
     AWS.config.region = 'REGION';
     ```
-    This is a known issue [1](https://github.com/Tim-B/grunt-aws-lambda/issues/18)[2](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html#Setting_the_Region) due to the SDK not pulling in the region automatically (like it does the secret/access keys), but due to the complexity of creating a workaround it's been backlogged for the moment.
+    This is a known issue ([1](https://github.com/Tim-B/grunt-aws-lambda/issues/18), [2](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-configuring.html#Setting_the_Region)) due to the SDK not pulling in the region automatically (like it does the secret/access keys), but due to the complexity of creating a workaround it's been backlogged for the moment.
 - This toolkit is meant to be used in conjunction with the [AWS cli](https://aws.amazon.com/cli/). By default, and without passing in any secret or access key, the module will be given the secret/access keys from your global config set by the AWS cli. If you are worried about including your keys in source control, it is highly recommended you store them globally via the AWS cli. This will be remedied in the future via an _.rc_ configuration file.
 
 ## Installation:
