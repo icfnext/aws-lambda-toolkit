@@ -123,7 +123,7 @@ npm install --save aws-lambda-toolkit
     }
 
     if (process.argv[process.argv.length - 1] === 'test') {
-        deployAwsLambda.test();
+        lambdaToolkit.test();
     }
     ```
 5. Add your deployment scripts to `package.json`:
@@ -140,7 +140,7 @@ npm install --save aws-lambda-toolkit
 7. Deploy your lambda via `npm run deploy`
 
 ## Contact
-Feel free to open PR's, issues, or contact me with any questions/concerns. This was built to speed up development of some internal POC's utilizing AWS lambdas over at [ICF Interactive](http://icfi.com/interactive).
+Feel free to open PR's, issues, or contact me with any questions/concerns. This was built to speed up development of some internal POC's utilizing AWS lambdas over at [ICF Olson](http://icfolson.com/).
 
 
 [npm-url]: https://www.npmjs.com/package/aws-lambda-toolkit
