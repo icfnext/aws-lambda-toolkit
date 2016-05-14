@@ -144,8 +144,9 @@ Feel free to open PR's, issues, or contact me with any questions/concerns. This 
 
 ## Changelog
 ### v0.0.10
-- Updated context emulator to only fire a scripts context once (you no longer have to `return` a context event for it to terminate the request)
+- Updated context emulator to only fire a scripts context once (you no longer have to `return` a context event for it to terminate the request... doh)
 - Fixed an issue where it would run tests numerous times based on the current index of the test being run (if you were running the 3rd test it would display the results 3 times rather than just once)
+- All npm modules listed as `devDependencies` will be ignored when bundling up the lambda file for deployment
 - Some minor test runner formatting changes
 - Fixed typo in readme that would cause errors if the example `tasks.js` script was used
 
