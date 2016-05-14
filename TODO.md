@@ -1,4 +1,4 @@
-- [] Determine why test results are showing up 3 times
+- [x] Determine why test results are showing up 3 times
 - [] Implement a way to provide a script to be run before deployment as a pre-deployment task
 - [] Refactor testing results to be more readable (perhaps log to file?)
 - [] Determine if there is a way to view console logs when running scripts

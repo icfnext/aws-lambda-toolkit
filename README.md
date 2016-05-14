@@ -142,6 +142,12 @@ npm install --save aws-lambda-toolkit
 ## Contact
 Feel free to open PR's, issues, or contact me with any questions/concerns. This was built to speed up development of some internal POC's utilizing AWS lambdas over at [ICF Olson](http://icfolson.com/).
 
+## Changelog
+### v0.0.10
+- Updated context emulator to only fire a scripts context once (you no longer have to `return` a context event for it to terminate the request)
+- Fixed an issue where it would run tests numerous times based on the current index of the test being run (if you were running the 3rd test it would display the results 3 times rather than just once)
+- Some minor test runner formatting changes
+- Fixed typo in readme that would cause errors if the example `tasks.js` script was used
 
 [npm-url]: https://www.npmjs.com/package/aws-lambda-toolkit
 [npm-image]: https://img.shields.io/npm/v/aws-lambda-toolkit.svg?style=flat-square
