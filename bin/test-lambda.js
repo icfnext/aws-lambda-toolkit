@@ -4,26 +4,26 @@ var http = require('http'),
     testRunner = require('../lib/testing/run-tests.js');
 
 var testLambdaFunction = function testLambda(props) {
-    var cwd, config, entry, tests,
-        port = 3001,
+    var cwd = process.cwd(),
+        package = require(cwd+'/package.json'),
+        config = require(cwd+'/.awstoolkitconfig.json'),
+        entry, tests,
+        port = 3123,
         srv, req;
 
     // get main lambda file path
     if (props && props.hasOwnProperty('entry')) {
         entry = cwd+'/'+props.entry;
     } else {
-        cwd = process.cwd();
-        config = require(cwd+'/package.json');
-        entry = cwd+'/'+config.main;
+        entry = cwd+'/'+package.main;
     }
 
     if (props && props.hasOwnProperty('tests')) {
         tests = props.tests;
     } else {
-        tests = config.lambdatests;
+        tests = config.tests;
     }
 
-    port = 3001;
     srv = server(entry);
     srv.listen(port);
     testRunner(tests, port);
