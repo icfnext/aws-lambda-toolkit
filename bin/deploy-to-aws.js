@@ -13,10 +13,17 @@ var bundle  = require('../lib/deploying/bundle-lambda.js'),
 var config  = require(process.cwd() + '/.awstoolkitconfig.json'),
     creds;
 
-var deployToAws = function(props) {
+/**
+ * Bundles and deploys the lambda to AWS.
+ * If no props are present, attempt to use the config file.
+ * @param {Object=} props - The optional props to use for deloyment.
+ * @returns {Function} instance of the NPM installer and bundler.
+ */
+var deployToAws = function (props) {
     var params = props || {},
         lambda = new aws.Lambda({ region: config.region || params.region }),
-        secret, access;
+        secret, access, doPublish;
+
     // Set up properties...
     try {
         // If we can get the creds file, use it
@@ -42,6 +49,14 @@ var deployToAws = function(props) {
         // via the AWS SDK credentials file (~/.aws/credentials)
     }
 
+    // Only publish a new version if specified to prevent 500000000 versions
+    doPublish = false;
+    if (config.hasOwnProperty('publish'))
+      doPublish = config.publish;
+
+    if (params.hasOwnProperty('publish'))
+      doPublish = params.publish;
+
     // Set our region
     aws.config.update({
         accessKeyId : access,
@@ -58,7 +73,7 @@ var deployToAws = function(props) {
         // Lets do some uploading, dawg
         console.log('Attempting to upload bundled lambda to AWS.');
         lambda.updateFunctionCode({
-            Publish: true,
+            Publish: doPublish,
             FunctionName: config.name || params.name,
             ZipFile: file
         }, function(err, data) {
@@ -117,6 +132,7 @@ var deployToAws = function(props) {
         });
     };
 
+    // Fire off the installer and bundler and return the results
     return install(function() {
         console.log('Successfully installed npm modules.');
         return bundle(deploy, config.name || params.name);
