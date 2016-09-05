@@ -10,7 +10,6 @@ A small library of AWS Lambda development tools to help make AWS Lambda developm
 
 - ~~Creation of an .rc file that will house the AWS config settings while being omitted by source control~~
 - ~~Creation of lambda function on first deployment~~
-- Add unit tests
 - Suggestions welcome!
 
 ## Gotchas
@@ -40,6 +39,7 @@ The configuration file can vary depending on the status of the lambda you're wor
     "region": "us-east-1",
     "role": "arn:aws:iam::123456789101:role/lambda-example",
     "description": "A really cool lambda that does awesome stuff.",
+    "publish": true,
     "ignores" : [
         "testing"
     ],
@@ -57,6 +57,7 @@ The configuration file can vary depending on the status of the lambda you're wor
 - `handler`: **Required for lambda creation.** The handler for your function. Essentially its your JS file with `.handler` on the end of it (`yourjsfile.handler`).
 - `role`: **Required for lambda creation.** The role arn you want to use to specify permissions for your lambda.
 - `description`: **Optional.** The description you want to add for this lambda to easily discern what it does in the AWS control panel.
+- `publish`: **Optional.** Whether to publish a new version of your lambda every deployment or not.
 - `ignores`: **Optional.** An array of paths to ignore when bundling up the lambdas source.
 - `tests`: **Optional.** An object containing test identifiers (key) and paths to test JSON request data (value). Ex:
 `{ "testname" : "pathto/test.json" }`
@@ -84,6 +85,7 @@ As mentioned in the _Gotchas_ section, the credentials file is only really neces
     + accessKey: (optional) Your AWS Access Key
     + region: (optional) The AWS Region to use
     + name: (optional) The function name to use
+    + publish: (optional) Whether to publish a new version
 
 The `.deploy()` method will take your code, bundle it up into a fancy fresh zip file, and upload it to AWS. If the function/lambda doesn't already exist, the method will auto-create it as long as all of the required properties inside of the configuration file are set up. Alternatively, you can pass in an object with any property you'd like to be tacked into the config before creation. This is useful for dynamic lambda creation.
 
@@ -133,16 +135,23 @@ The `.test()` method will allow you to run test requests against your Lambda on 
     var gulp = require('gulp'),
         lambdaToolkit = require('aws-lambda-toolkit');
 
-    gulp.task('deploy-to-aws', function() {
+    gulp.task('deploy-to-aws', function () {
         lambdaToolkit.deploy();
     });
 
-    gulp.task('test-lambda', function() {
+    gulp.task('publish-lambda', function () {
+        lambdaToolkit.deploy({
+          publish: true
+        });
+    });
+
+    gulp.task('test-lambda', function () {
         lambdaToolkit.test();
     });
     ```
 5. Run `gulp test-lambda` to have the module fire up your lambda and shoot the test requests over to it.
 6. Run `gulp deploy-to-aws` to deploy your lambda
+7. Run `gulp publish-lambda` to publish the lambda with a new version
 
 
 
@@ -177,11 +186,17 @@ The `.test()` method will allow you to run test requests against your Lambda on 
     var lambdaToolkit = require('aws-lambda-toolkit');
 
     if (process.argv[process.argv.length - 1] === 'deploy') {
+        // If not using a .awscredentials.json file or aws-cli config
         lambdaToolkit.deploy({
             secretKey: 'SECRET_KEY',
-            accessKey: 'ACCESS_KEY',
-            region: 'REGION',
-            name: 'FUNCTION_NAME'
+            accessKey: 'ACCESS_KEY'
+        });
+    }
+
+    if (process.argv[process.argv.length - 1] === 'publish') {
+        // If using .awscredentials.json file
+        lambdaToolkit.deploy({
+          publish: true
         });
     }
 
@@ -193,6 +208,7 @@ The `.test()` method will allow you to run test requests against your Lambda on 
     ```
     {
         "scripts" : {
+            "publish" : node tasks.js publish",
             "deploy" : "node tasks.js deploy",
             "test" : "node tasks.js test"
         }
@@ -206,6 +222,9 @@ The `.test()` method will allow you to run test requests against your Lambda on 
 Feel free to open PR's, issues, or contact me with any questions/concerns. This was built to speed up development of some internal POC's utilizing AWS lambdas over at [ICF Olson](http://icfolson.com/).
 
 ## Changelog
+### v0.1.1
+- Added `publish` property to config and `.deploy()` parameters to avoid 80000321.7 different versions of lambdas.
+
 ### v0.1.0
 - Addition of the `.awstoolkitconfig.json` configuration file. Refactoring of deployment/testing modules to accommodate.
 - Added `.awscredentials.json` credentials file so credentials can be ignored via version control.
