@@ -21,8 +21,8 @@ var config  = require(process.cwd() + '/.awstoolkitconfig.json'),
  */
 var deployToAws = function (props) {
     var params = props || {},
-        lambda = new aws.Lambda({ region: config.region || params.region }),
-        secret, access, doPublish;
+        lambda,
+        secret, access;
 
     // Set up properties...
     try {
@@ -63,6 +63,8 @@ var deployToAws = function (props) {
         secretAccessKey : secret,
         region : config.region || params.region
     });
+
+    lambda = new aws.Lambda({ region: config.region || params.region });
 
     /**
      * Uses the AWS SDK to update a lambdas source code by pushing up the local

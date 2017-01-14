@@ -1,7 +1,7 @@
 {
   "name": "aws-lambda-toolkit",
-  "version": "0.1.2",
-  "description": "A small library of AWS lambda tools for easier lambda development.",
+  "version": "0.2.0",
+  "description": "A small library of AWS lambda tools for easier lambda development and deployment.",
   "main": "index.js",
   "keywords": [
     "aws",
@@ -12,13 +12,11 @@
     "deploy",
     "deployment"
   ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "CID10",
   "contributors": [
     "Matt Bengston <matt.bengston@icfolson.com> (http://aesinv.com)",
-    "John Daniel <johndaniel@gmail.com>"
+    "John Daniel <johndaniel@gmail.com>",
+    "Paul Michelotti <paul.michelotti@gmail.com>"
   ],
   "repository": {
     "type": "git",
@@ -26,7 +24,11 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
+    "archiver": "^1.3.0",
     "aws-sdk": "^2.2.17",
-    "chalk": "^1.1.1"
+    "chalk": "^1.1.1",
+    "flatmap": "0.0.3",
+    "glob": "^7.1.1",
+    "tmp": "0.0.31"
   }
 }

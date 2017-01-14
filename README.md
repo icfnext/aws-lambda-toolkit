@@ -10,6 +10,9 @@ A small library of AWS Lambda development tools to help make AWS Lambda developm
 
 - ~~Creation of an .rc file that will house the AWS config settings while being omitted by source control~~
 - ~~Creation of lambda function on first deployment~~
+- Add unit tests
+- ~~Get the darn thing to work in Windows~~
+- Create a bin so it can be run as a CLI
 - Suggestions welcome!
 
 ## Gotchas
