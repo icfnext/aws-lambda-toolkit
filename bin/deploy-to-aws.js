@@ -115,7 +115,7 @@ var deployToAws = function (props) {
             FunctionName: config.name || params.name,
             Handler: config.handler || params.handler,
             Role: config.role || params.role,
-            Runtime: 'nodejs4.3',
+            Runtime: config.runtime || 'nodejs4.3',
             Description: config.description || params.role || '',
             Publish: true
         }, function(err, data) {
