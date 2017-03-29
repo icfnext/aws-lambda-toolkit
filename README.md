@@ -43,6 +43,7 @@ The configuration file can vary depending on the status of the lambda you're wor
     "role": "arn:aws:iam::123456789101:role/lambda-example",
     "description": "A really cool lambda that does awesome stuff.",
     "publish": true,
+    "runtime": "nodejs6.10"
     "ignores" : [
         "testing"
     ],
@@ -61,6 +62,7 @@ The configuration file can vary depending on the status of the lambda you're wor
 - `role`: **Required for lambda creation.** The role arn you want to use to specify permissions for your lambda.
 - `description`: **Optional.** The description you want to add for this lambda to easily discern what it does in the AWS control panel.
 - `publish`: **Optional.** Whether to publish a new version of your lambda every deployment or not.
+- `runtime`: **Optional.** Specify the run time of Lambda. Defaults to nodejs4.3.
 - `ignores`: **Optional.** An array of paths to ignore when bundling up the lambdas source.
 - `tests`: **Optional.** An object containing test identifiers (key) and paths to test JSON request data (value). Ex:
 `{ "testname" : "pathto/test.json" }`
