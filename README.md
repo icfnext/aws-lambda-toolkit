@@ -227,6 +227,14 @@ The `.test()` method will allow you to run test requests against your Lambda on 
 Feel free to open PR's, issues, or contact me with any questions/concerns. This was built to speed up development of some internal POC's utilizing AWS lambdas over at [ICF Olson](http://icfolson.com/).
 
 ## Changelog
+
+### v0.3.0
+- Addition of runtime config
+
+### v0.2.0
+- Update to a zip node module so as to not rely on CLI zip utility.  
+- Better handling of dependency and transitive dependency collection and ignoring of dev dependencies
+
 ### v0.1.1
 - Added `publish` property to config and `.deploy()` parameters to avoid 80000321.7 different versions of lambdas.
 
