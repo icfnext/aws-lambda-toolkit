@@ -9,10 +9,6 @@ var aws     = require('aws-sdk'),
 var bundle  = require('../lib/deploying/bundle-lambda.js'),
     install = require('../lib/deploying/install-modules.js');
 
-// Configs
-var config  = require(process.cwd() + '/.awstoolkitconfig.json'),
-    creds;
-
 /**
  * Bundles and deploys the lambda to AWS.
  * If no props are present, attempt to use the config file.
@@ -20,6 +16,12 @@ var config  = require(process.cwd() + '/.awstoolkitconfig.json'),
  * @returns {Function} instance of the NPM installer and bundler.
  */
 var deployToAws = function (props) {
+
+    // Configs
+    var configName = '.awstoolkitconfig.' + ( props.environment ? props.environment + '.' : '' ) + 'json';
+    var config  = require(process.cwd() + '/' + configName),
+        creds;
+
     var params = props || {},
         lambda,
         secret, access;
@@ -74,11 +76,16 @@ var deployToAws = function (props) {
     var deploy = function(file) {
         // Lets do some uploading, dawg
         console.log('Attempting to upload bundled lambda to AWS.');
-        lambda.updateFunctionCode({
+
+        var updateConfig = {
             Publish: doPublish,
             FunctionName: config.name || params.name,
             ZipFile: file
-        }, function(err, data) {
+        };
+
+        //TODO: Allow for function configuration updates
+
+        lambda.updateFunctionCode(updateConfig, function(err, data) {
             if (err) {
                 // If it doesn't exist....
                 if (err.code === 'ResourceNotFoundException') {
@@ -108,7 +115,7 @@ var deployToAws = function (props) {
     var create = function createFunction(file) {
         console.log('Attempting to create function on AWS.');
         // Create our lambda!
-        lambda.createFunction({
+        var createConfig = {
             Code: {
                 ZipFile: file
             },
@@ -118,7 +125,16 @@ var deployToAws = function (props) {
             Runtime: config.runtime || 'nodejs4.3',
             Description: config.description || params.role || '',
             Publish: true
-        }, function(err, data) {
+        };
+
+        if ( config.vpcConfig ) {
+            createConfig.VpcConfig = {
+                SecurityGroupIds: config.vpcConfig.securityGroupIds,
+                SubnetIds: config.vpcConfig.subnetIds
+            };
+        }
+
+        lambda.createFunction(createConfig, function(err, data) {
             if (err) // If there was an error, log dat
                 return console.log('[AWS ERROR]:', err.message);
 
@@ -137,7 +153,10 @@ var deployToAws = function (props) {
     // Fire off the installer and bundler and return the results
     return install(function() {
         console.log('Successfully installed npm modules.');
-        return bundle(deploy, config.name || params.name);
+        return bundle(deploy, {
+            name: config.name || params.name,
+            environment: props.environment
+        } );
     });
 };
 

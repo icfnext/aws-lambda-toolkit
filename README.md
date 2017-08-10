@@ -32,7 +32,9 @@ touch .awstoolkitconfig.json
 ```
 
 ## Configuration
+
 ### `.awstoolkitconfig.json` File
+
 The configuration file can vary depending on the status of the lambda you're working on. If the lambda is already created and set up within AWS, it can be fairly lightweight and only contain a region, function name and test data. If you're starting from scratch you'll need to add a little bit more, but the process is streamlined and only requires the parameters required by the AWS SDK (aside from ones that are trivial and never change).
 
 ```
@@ -66,6 +68,19 @@ The configuration file can vary depending on the status of the lambda you're wor
 - `ignores`: **Optional.** An array of paths to ignore when bundling up the lambdas source.
 - `tests`: **Optional.** An object containing test identifiers (key) and paths to test JSON request data (value). Ex:
 `{ "testname" : "pathto/test.json" }`
+- `vpcConfig`: **Optional.** Security Group and Subnet configurations for Lambdas which require access to VPC protected resources such as RDS.
+  - `subnetIds`: **Required when vpcConfig is present.** List of string subnet identifiers
+  - `securityGroupIds`: **Required when vpcConfig is present.** List of string security group identifiers
+
+#### Environment Specific Configuration Files
+
+Multiple environment specific configuration files may be defined.  The form of the 
+name for these files is `.awstoolkitconfig.environment.json` where `environment` is 
+replaced with the name of the environment it represents - for instance 
+`.awstoolkitconfig.prod.json`.  The naming of the environments is left to you.  
+Which file is chosen is based on the `environment` property passed to the 
+`.deploy()` function.  If no environment is specified the `.awscredentials.json` 
+file will be selected if available.
 
 ### Optional `.awscredentials.json` File
 As mentioned in the _Gotchas_ section, the credentials file is only really necessary if you're not using the AWS CLI to manage your credentials. It's just a simple JSON file with your secret and access keys that can be ignored via version control to prevent compromising your credentials.
@@ -91,6 +106,8 @@ As mentioned in the _Gotchas_ section, the credentials file is only really neces
     + region: (optional) The AWS Region to use
     + name: (optional) The function name to use
     + publish: (optional) Whether to publish a new version
+    + environment: (optional) String indicating the environment of deployment. 
+      Used in selecting the configuration file for deployment.
 
 The `.deploy()` method will take your code, bundle it up into a fancy fresh zip file, and upload it to AWS. If the function/lambda doesn't already exist, the method will auto-create it as long as all of the required properties inside of the configuration file are set up. Alternatively, you can pass in an object with any property you'd like to be tacked into the config before creation. This is useful for dynamic lambda creation.
 
@@ -227,6 +244,11 @@ The `.test()` method will allow you to run test requests against your Lambda on 
 Feel free to open PR's, issues, or contact me with any questions/concerns. This was built to speed up development of some internal POC's utilizing AWS lambdas over at [ICF Olson](http://icfolson.com/).
 
 ## Changelog
+
+### v0.4.0
+- Addition of an `--env` argument and affordance of environment specific config files
+- Addition of support for `vpcConfig` to the config file
+- Update to latest AWS SDK version
 
 ### v0.3.0
 - Addition of runtime config

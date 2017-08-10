@@ -11,7 +11,8 @@ var http = require('http'),
 var testLambdaFunction = function testLambda(props) {
     var cwd = process.cwd(),
         pkg = require(cwd+'/package.json'),
-        config = require(cwd+'/.awstoolkitconfig.json'),
+        configName = '.awstoolkitconfig.' + ( props.environment ? props.environment + '.' : '' ) + 'json',
+        config  = require(cwd + '/' + configName),
         entry, tests,
         port = 3123,
         srv, req;

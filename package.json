@@ -1,6 +1,6 @@
 {
   "name": "aws-lambda-toolkit",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A small library of AWS lambda tools for easier lambda development and deployment.",
   "main": "index.js",
   "keywords": [
@@ -20,12 +20,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Citytechinc/aws-lambda-toolkit.git"
+    "url": "https://github.com/OlsonDigital/aws-lambda-toolkit"
   },
   "license": "Apache-2.0",
   "dependencies": {
     "archiver": "^1.3.0",
-    "aws-sdk": "^2.2.17",
+    "aws-sdk": "^2.95.0",
     "chalk": "^1.1.1",
     "flatmap": "0.0.3",
     "glob": "^7.1.1",
